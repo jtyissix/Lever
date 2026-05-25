@@ -1,5 +1,6 @@
 # [KDD 2026] Lever: Locality-Aware Device–Cloud Collaboration for Graph-Based RAG
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1234567.svg)](https://doi.org/10.5281/zenodo.1234567)
+
 Lever is a graph-based Retrieval-Augmented Generation (RAG) framework that uses a
 compact device-side personalized index to guide cloud-side retrieval. The core idea
 is to exploit user-level query locality so the cloud search starts from a better entry
