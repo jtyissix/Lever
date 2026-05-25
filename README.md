@@ -84,7 +84,7 @@ export RAG_ARTIFACT_ROOT=/path/to/lever/artifacts
 - For MS MARCO dataset, you can refer to `https://github.com/ibm-aur-nlp/domain-specific-QA` for domain augmented MS MARCO dataset
 - For Ultradomain dataset, refer to `https://huggingface.co/datasets/TommyChien/UltraDomain`
 - For MMLU dataset, refer to `https://huggingface.co/datasets/cais/mmlu`
--For RobustQA, refer to `https://github.com/awslabs/robustqa-acl23`
+- For RobustQA, refer to `https://github.com/awslabs/robustqa-acl23`
 ## Reproduction Workflow
 
 The recommended reproduction flow is shown below. Replace the paths with your own data locations.
