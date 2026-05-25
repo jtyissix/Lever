@@ -1,4 +1,4 @@
-# [KDD 2026] Lever: Locality-Aware Device–Cloud Collaboration for Graph-Based RAG
+# [KDD 2026] Lever: Accelerating Graph-Based RAG Retrieval via Locality-Aware Device–Cloud Collaboration
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20379487.svg)](https://doi.org/10.5281/zenodo.20379487)
 
 Lever is a graph-based Retrieval-Augmented Generation (RAG) framework that uses a
