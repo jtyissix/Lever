@@ -3,7 +3,11 @@
 Lever is a graph-based Retrieval-Augmented Generation (RAG) framework that uses a
 compact device-side personalized index to guide cloud-side retrieval. The core idea
 is to exploit user-level query locality so the cloud search starts from a better entry
-point, reducing traversal cost while preserving retrieval quality.
+point, reducing traversal cost while preserving retrieval quality. Extensive
+experiments on multiple RAG benchmarks demonstrate that Lever
+significantly reduces retrieval latency and improves throughput
+while preserving retrieval quality, highlighting query locality as a
+powerful and complementary lever for scalable RAG retrieval
 
 ## Highlights
 
