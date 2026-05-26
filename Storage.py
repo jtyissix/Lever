@@ -14,7 +14,7 @@ import faiss
 from langchain_community.docstore.in_memory import InMemoryDocstore
 from sklearn.neighbors import BallTree
 from DataStructure import update_packet,node_info
-from Prompts import EXTRACT_TAG_PROMPT,TAG_MATCH_PROMPT
+from Prompts import EXTRACT_TAG_PROMPT
 from llms import summary_LLM
 from config import TAG_MODEL_PATH, TAG_CACHE_PATH, DOMAIN_KNN_DIR, OUTPUT_ROOT
 def bool_generator(probability):

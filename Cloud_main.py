@@ -131,7 +131,7 @@ def run_update(args: argparse.Namespace) -> None:
         user_id = packet_path.stem.split("_")[-1]
         storage.sampling(
             packet,
-            [args.locality_ratio, args.tag_ratio],
+            [args.one-hop-ratio, args.two-hop-ratio],
             user_id,
             output_dir=args.output_dir / f"user_{user_id}",
         )
@@ -176,8 +176,8 @@ def build_parser() -> argparse.ArgumentParser:
     update = subparsers.add_parser("update", parents=[common], help="Run device-index update")
     update.add_argument("--update-dir", type=Path, required=True)
     update.add_argument("--pattern", default="user_*_update.pkl")
-    update.add_argument("--locality-ratio", type=float, default=0.45)
-    update.add_argument("--tag-ratio", type=float, default=0.45)
+    update.add_argument("--one-hop-ratio", type=float, default=0.5)
+    update.add_argument("--two-hop-ratio", type=float, default=0.5)
     update.add_argument("--output-dir", type=Path, required=True)
     update.set_defaults(func=run_update)
 

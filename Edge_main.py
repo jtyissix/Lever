@@ -6,6 +6,7 @@ The open-source workflow is organized into three explicit edge-side phases:
 2. Reload the ask-stage statistics and call `sample_num_calc_2`.
 3. Rebuild the edge index after the cloud emits updated vectors.
 """
+#you have to change keywords manually here
 
 from __future__ import annotations
 
@@ -19,7 +20,11 @@ import numpy as np
 from DataStructure import update_packet
 from Storage import Edge_VectorStore
 
-
+keywords=['Biology', 'Business', 'Medicine', 'Health', 'Legal', 'Agriculture', 'History',
+'Engineering', 'Science', 'Real Estate', 'Psychology', 'Environment', 'Sociology',
+'Programming', 'Cooking', 'Healthcare', 'Art', 'Finance', 'Family', 'Insurance',
+'Accounting', 'Philosophy', 'Computing', 'Literature', 'Politics', 'Law', 'Energy',
+'General', 'Mathematics', 'Physics', 'Computer Science', 'Music', 'Fiction', 'Entertainment', 'Pharmaceutical', 'legal','Others']
 def _load_vectors(path: Path) -> np.ndarray:
     return np.load(path).astype("float32")
 
@@ -80,14 +85,22 @@ def build_sample_packet(args: argparse.Namespace) -> None:
 
     with args.pair_path.open("r", encoding="utf-8") as f:
         pair = json.load(f)
+    id_domain = pickle.load(args.id_domain_map.open("rb"))
+    #keywords = _load_keywords(args.keywords_path, args.keywords)
+    domain1= {keyword:0 for keyword in keywords }
+    for item in _load_vectors(args.query_vectors):
+        _, ids = storage.search_for_entry_point(np.array([item]))
+        #lst[ids[0][0]] += 1
+        domain1[id_domain[storage.map.index(ids[0][0])]]+=1
 
-    keywords = _load_keywords(args.keywords_path, args.keywords)
+    top = sorted(domain1.items(), key=lambda x: x[1], reverse=True)[:3]
+    keep_keyword= [item[0] for item in top]
     sample_array, no_update_array = storage.sample_num_calc_2(
         args.drop_rate,
         args.locality_ratio,
         args.data_driven_ratio,
         pair,
-        keywords,
+        keep_keyword,
     )
     packet = update_packet(None, sample_array, no_update_array)
 
@@ -136,8 +149,10 @@ def build_parser() -> argparse.ArgumentParser:
     sample.add_argument("--drop-rate", type=float, default=0.1)
     sample.add_argument("--locality-ratio", type=float, default=0.45)
     sample.add_argument("--data-driven-ratio", type=float, default=0.45)
-    sample.add_argument("--keywords", nargs="*", default=None, help="Keywords passed directly on the command line")
-    sample.add_argument("--keywords-path", type=Path, default=None, help="Optional json file containing keywords")
+    #sample.add_argument("--keywords", nargs="*", default=None, help="Keywords passed directly on the command line")
+    #sample.add_argument("--keywords-path", type=Path, default=None, help="Optional json file containing keywords")
+    sample.add_argument("--query-vectors", type=Path, required=True, help="Used for calculating top domains")
+    sample.add_argument("--id-domain-map", type=Path, required=True, help="pkl mapping from entry ID to domain")
     sample.set_defaults(func=build_sample_packet)
 
     rebuild = subparsers.add_parser("rebuild", parents=[common], help="Rebuild the edge index from cloud-produced vectors")
